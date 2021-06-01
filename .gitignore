@@ -1,0 +1,7 @@
+coverage/
+node_modules/
+dist/
+
+# Serverless directories
+.serverless
+.build

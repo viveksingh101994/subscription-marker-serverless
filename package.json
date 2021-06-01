@@ -1,0 +1,49 @@
+{
+  "name": "bits",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "serverless offline",
+    "test": "jest --coverage --passWithNoTests specs/*",
+    "fix:eslint": "eslint --fix -c .eslintrc.js",
+    "fix:prettier": "prettier --single-quote --write \"**/*.{js,ts,md}\" \"specs/**/*.{js,ts,md}\" *.md",
+    "test:prettier": "prettier --list-different \"src/**/*.{js,ts,md}\" \"specs/**/*.{js,ts,md}\" *.md",
+    "test:eslint": "tsc && eslint -c .eslintrc.js",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viveksingh101994/bits.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/viveksingh101994/bits/issues"
+  },
+  "homepage": "https://github.com/viveksingh101994/bits#readme",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.76",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.6.1",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb-bundle": "^3.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
+    "jest": "^27.0.3",
+    "prettier": "^2.3.0",
+    "serverless": "^2.43.1",
+    "serverless-offline": "^7.0.0",
+    "ts-jest": "^27.0.2",
+    "typescript": "^4.3.2"
+  },
+  "dependencies": {
+    "aws-lambda": "^1.0.6"
+  }
+}

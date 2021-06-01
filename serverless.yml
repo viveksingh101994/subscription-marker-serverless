@@ -1,0 +1,39 @@
+service: bits
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${env:AWS_STAGE, 'dev'}
+  region: ${env:AWS_REGION, 'us-east-1'}
+
+
+package:
+  exclude:
+    - test/**/*
+    - .eslintignore
+    - .eslintrc.js
+    - .prettierignore
+    - .prettierrc.json
+    - jest.config.js
+    - README.md
+    - tsconfig.json
+    - tsconfig.test.json
+    - package-lock.json
+  include:
+    - handler.ts
+    - src/**/*
+
+functions:
+  healthcheck:
+  handler: handler.healthCheck
+  events:
+    - http:
+        path: /healthcheck
+        method: get
+  timeout: ${env:LAMBDA_TIMEOUT_IN_SECS, 10}
+  memorySize: ${env:LAMBDA_MEMORY_SIZE, 512}
+  reservedConcurreny: ${env:LAMBDA_RESERVED_CONCURRENCY, 5}
