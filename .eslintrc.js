@@ -3,7 +3,7 @@
     https://eslint.org/docs/rules/
  */
 
- module.exports = {
+module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2019,
