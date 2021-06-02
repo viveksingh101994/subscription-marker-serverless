@@ -25,6 +25,7 @@
   "homepage": "https://github.com/viveksingh101994/bits#readme",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.76",
+    "@types/busboy": "^0.2.3",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.6.1",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
@@ -39,12 +40,14 @@
     "jest": "^27.0.3",
     "prettier": "^2.3.0",
     "serverless": "^2.43.1",
+    "serverless-dynamodb-local": "^0.2.39",
     "serverless-offline": "^7.0.0",
     "serverless-plugin-typescript": "^1.1.9",
     "ts-jest": "^27.0.2",
     "typescript": "^4.3.2"
   },
   "dependencies": {
-    "aws-lambda": "^1.0.6"
+    "aws-lambda": "^1.0.6",
+    "aws-sdk": "^2.919.0"
   }
 }

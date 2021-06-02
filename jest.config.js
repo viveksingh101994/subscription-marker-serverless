@@ -7,6 +7,8 @@ module.exports = {
     '/dist',
     'handler.ts',
     '.build',
+    '/src/models/db-opeation.queries.ts',
+    '/src/db/index.ts',
   ],
   coverageThreshold: {
     global: {

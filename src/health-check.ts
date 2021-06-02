@@ -3,7 +3,6 @@ export const healthCheckHandler = (event: any): IHealthResponse => ({
   body: JSON.stringify(
     {
       message: 'Node serverless! Your function executed succesfully',
-      input: event,
     },
     null,
     2

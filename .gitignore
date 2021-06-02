@@ -5,3 +5,5 @@ dist/
 # Serverless directories
 .serverless
 .build
+.env
+.vscode

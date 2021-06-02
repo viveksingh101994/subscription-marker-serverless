@@ -9,9 +9,20 @@ provider:
   runtime: nodejs14.x
   stage: ${env:AWS_STAGE, 'dev'}
   region: ${env:AWS_REGION, 'us-east-1'}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:custom.SUBSCRIPTION_DYNAMODB_TABLE}"
   
 custom:
   DOMAIN_SUFFIX: ${env:DOMAIN_SUFFIX,'bits_test'}
+  SUBSCRIPTION_DYNAMODB_TABLE: ${env:SUBSCRIPTION_DYNAMODB_TABLE,'subscription-dev'}
 
 package:
   exclude:
@@ -30,30 +41,38 @@ package:
     - src/**/*
 
 functions:
+  authorizerFunc:
+    handler: handler.authorizerFunc
+
   healthcheck:
     handler: handler.healthCheck
     events:
       - http:
           path: /healthcheck
+          method: get
+    timeout: ${env:LAMBDA_TIMEOUT_IN_SECS, 10}
+    memorySize: ${env:LAMBDA_MEMORY_SIZE, 512}
+    reservedConcurreny: ${env:LAMBDA_RESERVED_CONCURRENCY, 5}
+  
+  addSubscription:
+    handler: handler.addSubscription
+    events:
+      - http:
+          path: /subscription
           method: post
+          contentType: application/json
           authorizer:
             name: authorizerFunc
             resultTtlInSeconds: 0
             identitySource: method.request.header.Authorization
             identityValidationExpression: ^Bearer\s[a-f0-9-]{36}$
             type: token
+    environment:
+      NODE_ENV: ${self:provider.stage}
+      SUBSCRIPTION_DYNAMODB_TABLE: ${self:custom.SUBSCRIPTION_DYNAMODB_TABLE}
     timeout: ${env:LAMBDA_TIMEOUT_IN_SECS, 10}
     memorySize: ${env:LAMBDA_MEMORY_SIZE, 512}
     reservedConcurreny: ${env:LAMBDA_RESERVED_CONCURRENCY, 5}
-  authorizerFunc:
-    handler: handler.authorizerFunc
 
-  # preSignUp:
-  #   handler: handler.preSignUp
-  #   events:
-  #     - cognitoUserPool:
-  #         pool: ForEndUsers
-  #         trigger: PreSignUp
-
-# resources:
-#   - ${file(resources/cognito-user-pools.yml)}
+resources:
+  - ${file(resources/dynamo-db.yml)}

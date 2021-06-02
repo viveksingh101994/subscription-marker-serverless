@@ -1,0 +1,14 @@
+Resources:
+  subscriptionTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.SUBSCRIPTION_DYNAMODB_TABLE}
+      AttributeDefinitions:
+        - AttributeName: email
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
