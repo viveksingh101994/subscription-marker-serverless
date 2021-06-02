@@ -7,7 +7,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs14.x
-  stage: ${env:AWS_STAGE, 'prod'}
+  stage: ${env:AWS_STAGE, 'dev'}
   region: ${env:AWS_REGION, 'us-east-1'}
   iamRoleStatements:
     - Effect: Allow
@@ -24,10 +24,10 @@ provider:
 
 custom:
   DOMAIN_SUFFIX: ${env:DOMAIN_SUFFIX,'bits_test'}
-  SUBSCRIPTION_DYNAMODB_TABLE: ${env:SUBSCRIPTION_DYNAMODB_TABLE,'bits-subscription-dev'}
-  REPORTS_DYNAMODB_TABLE: ${env:REPORTS_DYNAMODB_TABLE,'bits-reports-dev'}
-  REPORTS_BUCKET: ${env:REPORTS_BUCKET,'bits-reports-dev'}
-  REPORT_DLQ: ${env:REPORT_DLQ,'bits-reports-dlq-dev'}
+  SUBSCRIPTION_DYNAMODB_TABLE: ${env:SUBSCRIPTION_DYNAMODB_TABLE,'bits-subscription'}-${env:AWS_STAGE,'dev'}
+  REPORTS_DYNAMODB_TABLE: ${env:REPORTS_DYNAMODB_TABLE,'bits-reports'}-${env:AWS_STAGE,'dev'}
+  REPORTS_BUCKET: ${env:REPORTS_BUCKET,'bits-reports'}-${env:AWS_STAGE,'dev'}
+  REPORT_DLQ: ${env:REPORT_DLQ,'bits-reports-dlq'}-${env:AWS_STAGE,'dev'}
 
 package:
   exclude:
