@@ -21,7 +21,7 @@ describe('Calculate Report', () => {
         async ({
           Item,
         }: IDBOperation<IUserReportRepository>): Promise<void> => {
-          if (Item.email === 'error') {
+          if (Item.email === '"error"') {
             return Promise.reject('error');
           } else {
             return Promise.resolve();

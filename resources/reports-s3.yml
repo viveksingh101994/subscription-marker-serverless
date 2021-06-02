@@ -1,5 +1,5 @@
 Resources:
-  ETLFanfullAssetsBucket:
+  ReportsBucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: ${self:custom.REPORTS_BUCKET}

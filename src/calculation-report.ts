@@ -2,6 +2,7 @@ import { ISubscription, IUserSubscription } from './constants/interaces';
 import { Report } from './models/report';
 import { ReportSubscriptionRepository } from './models/report-subscription-repository';
 import { storage } from './s3';
+import { DynamoDB } from 'aws-sdk';
 
 export const calculateReportHandler = async (event: any) => {
   try {
@@ -23,17 +24,8 @@ const parseReport = (event: any): IUserSubscription => {
   const { Records } = event;
   for (const record of Records) {
     const { dynamodb } = record;
-    const {
-      Keys: {
-        email: { S: email },
-      },
-      NewImage: {
-        subscription: { S: newSubscription },
-      },
-    } = dynamodb;
-    return {
-      email,
-      subscription: JSON.parse(newSubscription) as ISubscription[],
-    };
+    return DynamoDB.Converter.unmarshall(
+      dynamodb.NewImage
+    ) as IUserSubscription;
   }
 };

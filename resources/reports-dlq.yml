@@ -1,0 +1,5 @@
+Resources:
+  ReportDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:custom.REPORT_DLQ}
