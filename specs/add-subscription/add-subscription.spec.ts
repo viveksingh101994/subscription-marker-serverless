@@ -9,7 +9,7 @@ describe('Add subscription', () => {
       .mockReturnValue(Promise.resolve());
   });
 
-  it.only('should store user subscription for valid subscription', async () => {
+  it('should store user subscription for valid subscription', async () => {
     const response = await addSubscriptionHandler({
       requestContext: {
         authorizer: {
