@@ -1,6 +1,10 @@
 import { addSubscriptionHandler } from '../../src/add-subsciption';
 import { DBOperations } from '../../src/models/db-opeation.queries';
 import { IDBOperation, IUserSubscription } from '../../src/constants/interaces';
+import {
+  addSubscriptionInvalidMock,
+  addSubscriptionMock,
+} from '../mocks/add-subscription.mock';
 
 describe('Add subscription', () => {
   let dbInstanceStub: jest.SpyInstance;
@@ -25,7 +29,7 @@ describe('Add subscription', () => {
           user: 'error',
         },
       },
-      body: {},
+      body: JSON.stringify(addSubscriptionMock),
     });
     expect(response.statusCode).toBe(500);
     expect(JSON.parse(response.body)).toMatchObject({
@@ -40,7 +44,7 @@ describe('Add subscription', () => {
           user: 'test',
         },
       },
-      body: {},
+      body: JSON.stringify(addSubscriptionMock),
     });
     const parsedBody = JSON.parse(response.body);
     expect(response.statusCode).toBe(200);
@@ -49,6 +53,19 @@ describe('Add subscription', () => {
       status: 'subscription added successfully',
     });
   });
+
+  it('should give invalid parameters if name is number instead of strings', async () => {
+    const response = await addSubscriptionHandler({
+      requestContext: {
+        authorizer: {
+          user: 'test',
+        },
+      },
+      body: JSON.stringify(addSubscriptionInvalidMock),
+    });
+    expect(response.statusCode).toBe(401);
+  });
+
   afterAll(() => {
     dbInstanceStub.mockRestore();
   });
