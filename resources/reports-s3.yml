@@ -1,0 +1,16 @@
+Resources:
+  ETLFanfullAssetsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ${self:custom.REPORTS_BUCKET}
+      AccelerateConfiguration:
+        AccelerationStatus: 'Enabled'
+      CorsConfiguration:
+        CorsRules:
+          - AllowedOrigins:
+              - '*'
+            AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - 'GET'
+            MaxAge: 3000

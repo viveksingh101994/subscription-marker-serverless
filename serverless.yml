@@ -12,17 +12,21 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
+        - s3:PutObject
+      Resource: 
+        - "arn:aws:s3:::${self:custom.REPORTS_BUCKET}/*"
+    - Effect: Allow
+      Action:
         - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:custom.SUBSCRIPTION_DYNAMODB_TABLE}"
-  
+      Resource: 
+       - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:custom.SUBSCRIPTION_DYNAMODB_TABLE}"
+       - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:custom.REPORTS_DYNAMODB_TABLE}"
+
 custom:
   DOMAIN_SUFFIX: ${env:DOMAIN_SUFFIX,'bits_test'}
   SUBSCRIPTION_DYNAMODB_TABLE: ${env:SUBSCRIPTION_DYNAMODB_TABLE,'subscription-dev'}
+  REPORTS_DYNAMODB_TABLE: ${env:REPORTS_DYNAMODB_TABLE,'reports-dev'}
+  REPORTS_BUCKET: ${env:REPORTS_BUCKET,'reports-dev'}
 
 package:
   exclude:
@@ -76,6 +80,10 @@ functions:
 
   calculateSubscription:
     handler: handler.calculateSubscription
+    evnironment:
+      NODE_ENV: ${self:provider.stage}
+      REPORT_DYNAMODB_TABLE: ${self:custom.REPORTS_DYNAMODB_TABLE}
+      S3_REPORT_BUCKET: ${self:custom.REPORTS_BUCKET}
     events:
       - stream:
           type: dynamodb

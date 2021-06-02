@@ -14,3 +14,17 @@ Resources:
         WriteCapacityUnits: 1
       StreamSpecification:
         StreamViewType: NEW_AND_OLD_IMAGES
+
+  reportsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.REPORTS_DYNAMODB_TABLE}
+      AttributeDefinitions:
+        - AttributeName: email
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
