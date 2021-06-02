@@ -1,7 +1,7 @@
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['**/*.ts', '!**/typings/**'],
-  coverageReporters: ['text'],
+  coverageReporters: ['lcov','text'],
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '/dist',

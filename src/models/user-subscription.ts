@@ -6,6 +6,13 @@ export class UserSubscriptions {
   private static readonly tableName = subscriptionTable;
 
   public static async addSubscription(item: IUserSubscription): Promise<void> {
-    await DBOperations.put({ TableName: this.tableName, Item: item });
+    try {
+      await DBOperations.put<IUserSubscription>({
+        TableName: this.tableName,
+        Item: item,
+      });
+    } catch (err) {
+      throw err;
+    }
   }
 }
