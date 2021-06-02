@@ -9,7 +9,9 @@ provider:
   runtime: nodejs14.x
   stage: ${env:AWS_STAGE, 'dev'}
   region: ${env:AWS_REGION, 'us-east-1'}
-
+  
+custom:
+  DOMAIN_SUFFIX: ${env:DOMAIN_SUFFIX,'bits_test'}
 
 package:
   exclude:
@@ -33,7 +35,25 @@ functions:
     events:
       - http:
           path: /healthcheck
-          method: get
+          method: post
+          authorizer:
+            name: authorizerFunc
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            identityValidationExpression: ^Bearer\s[a-f0-9-]{36}$
+            type: token
     timeout: ${env:LAMBDA_TIMEOUT_IN_SECS, 10}
     memorySize: ${env:LAMBDA_MEMORY_SIZE, 512}
     reservedConcurreny: ${env:LAMBDA_RESERVED_CONCURRENCY, 5}
+  authorizerFunc:
+    handler: handler.authorizerFunc
+
+  # preSignUp:
+  #   handler: handler.preSignUp
+  #   events:
+  #     - cognitoUserPool:
+  #         pool: ForEndUsers
+  #         trigger: PreSignUp
+
+# resources:
+#   - ${file(resources/cognito-user-pools.yml)}

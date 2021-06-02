@@ -2,7 +2,12 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['**/*.ts', '!**/typings/**'],
   coverageReporters: ['text'],
-  coveragePathIgnorePatterns: ['/node_modules/', '/dist', 'handler.ts'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '/dist',
+    'handler.ts',
+    '.build',
+  ],
   coverageThreshold: {
     global: {
       branches: 80,
