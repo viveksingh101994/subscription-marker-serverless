@@ -17,3 +17,17 @@ export interface IUserSubscription {
   email: string;
   subscription: ISubscription[];
 }
+
+export interface IUserReport {
+  email: string;
+  totalAmount: number;
+  currency: CURRENCY;
+  score: number;
+  subscription: ISubscription[];
+}
+
+export interface IReportMetadata {
+  S3Key: string;
+}
+
+export interface IUserReportRepository extends IUserReport, IReportMetadata {}

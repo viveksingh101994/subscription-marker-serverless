@@ -4,7 +4,6 @@ import { IDBOperation, IUserSubscription } from '../../src/constants/interaces';
 
 describe('Add subscription', () => {
   let dbInstanceStub: jest.SpyInstance;
-  let dbIntancesStubThrowError: jest.SpyInstance;
   beforeAll(() => {
     dbInstanceStub = jest
       .spyOn(DBOperations, 'put')

@@ -11,3 +11,7 @@ export const authorizerFunc: Handler = async (event, context, callback) =>
 
 export const addSubscription: Handler = async (event: any) =>
   addSubscriptionHandler(event);
+
+export const calculateSubscription: Handler = async (event: any) => {
+  console.log('cac', JSON.stringify(event));
+};

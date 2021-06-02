@@ -74,5 +74,13 @@ functions:
     memorySize: ${env:LAMBDA_MEMORY_SIZE, 512}
     reservedConcurreny: ${env:LAMBDA_RESERVED_CONCURRENCY, 5}
 
+  calculateSubscription:
+    handler: handler.calculateSubscription
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            Fn::GetAtt: [subscriptionTable, StreamArn]
+
 resources:
   - ${file(resources/dynamo-db.yml)}

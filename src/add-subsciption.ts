@@ -1,4 +1,4 @@
-import { UserSubscriptions } from './models/user-subscription';
+import { UserSubscriptionRepository } from './models/user-subscription-repository';
 export const addSubscriptionHandler = async (event: any) => {
   try {
     const email = event.requestContext.authorizer.user;
@@ -6,7 +6,7 @@ export const addSubscriptionHandler = async (event: any) => {
       email,
       subscription: event.body,
     };
-    await UserSubscriptions.addSubscription(userSubscriptions);
+    await UserSubscriptionRepository.addSubscription(userSubscriptions);
     return {
       statusCode: 200,
       body: JSON.stringify({ status: 'subscription added successfully' }),

@@ -1,7 +1,7 @@
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['**/*.ts', '!**/typings/**'],
-  coverageReporters: ['lcov','text'],
+  coverageReporters: ['lcov', 'text'],
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '/dist',
@@ -9,6 +9,7 @@ module.exports = {
     '.build',
     '/src/models/db-opeation.queries.ts',
     '/src/db/index.ts',
+    '/src/s3/index.ts',
   ],
   coverageThreshold: {
     global: {
