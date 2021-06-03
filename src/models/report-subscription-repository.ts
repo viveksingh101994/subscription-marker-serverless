@@ -16,11 +16,12 @@ export class ReportSubscriptionRepository {
         Item: item,
       });
     } catch (err) {
+      console.log(err);
       throw err;
     }
   }
 
   public static async putS3(item: IUserReport, key: string) {
-    await storage.saveAsJSON(s3Report, key, JSON.stringify(item));
+    await storage.saveAsJSON(this.s3Report, key, JSON.stringify(item));
   }
 }

@@ -10,7 +10,8 @@ export const addSubscriptionHandler = async (event: any) => {
         body: JSON.stringify({ status: 'invalid parameters' }),
       };
     }
-    const email = event.requestContext.authorizer.user;
+    let email = event.requestContext.authorizer.user;
+    email = email.substr(1, email.length - 2);
     const userSubscriptions = {
       email,
       subscription: parsedBody,

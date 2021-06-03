@@ -81,7 +81,7 @@ functions:
 
   calculateSubscription:
     handler: handler.calculateSubscription
-    evnironment:
+    environment:
       NODE_ENV: ${self:provider.stage}
       REPORT_DYNAMODB_TABLE: ${self:custom.REPORTS_DYNAMODB_TABLE}
       S3_REPORT_BUCKET: ${self:custom.REPORTS_BUCKET}
