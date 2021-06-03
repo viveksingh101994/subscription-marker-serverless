@@ -26,7 +26,7 @@ describe('Add subscription', () => {
     const response = await addSubscriptionHandler({
       requestContext: {
         authorizer: {
-          user: 'error',
+          user: "'error'",
         },
       },
       body: JSON.stringify(addSubscriptionMock),
