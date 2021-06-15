@@ -1,6 +1,6 @@
-# Assignment: Bits Senior Software Engineer - API
+# Assignment
 
-Bits is planning to help customers build better credit score by leveraging their existing commitments. This new product will enable Bits customers to be able to submit their monthly recurring payments from their existing bank account. These recurring payments can be a Netflix Subscription, a Gym Membership or even their Rent. By submitting this information to Bits, Bits will be able to create a report on a monthly basis and can add these successful commitments to their customer’s credit file.
+This new product will enable customers to be able to submit their monthly recurring payments from their existing bank account. These recurring payments can be a Netflix Subscription, a Gym Membership or even their Rent. By submitting this information to us, We will be able to create a report on a monthly basis and can add these successful commitments to their customer’s credit file.
 
 You are assigned to design and implement a new API for supporting this new product. Functional and non-functional requirements for this new API are described below.
 
